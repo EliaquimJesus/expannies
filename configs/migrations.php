@@ -10,7 +10,7 @@ return [
     ],
 
     'migrations_paths' => [
-        'Migrations' => '/Migrations',
+        'Migrations' => __DIR__ . '/../migrations',
     ],
 
     'all_or_nothing' => true,

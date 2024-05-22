@@ -10,7 +10,7 @@ return [
         Twig::class    => function () {
             $twig = Twig::create(VIEW_PATH, [
                 'cache' => STORAGE_PATH . '/cache/templates',
-                'auto_reload' => true
+                'auto_reload' => \App\Enums\AppEnvironment::isDevelopment('production'),
             ]);
 
             $twig->addExtension(new IntlExtension());
