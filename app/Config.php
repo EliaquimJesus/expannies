@@ -6,32 +6,27 @@ namespace App;
 
 class Config
 {
-    protected array $config = [];
-
-    public function __construct(array $env)
+    public function __construct(private readonly array $config)
     {
-        $this->config = [
-            'db' => [
-                'host'      => $env['DB_HOST'],
-                'dbname'  => $env['DB_DATABASE'],
-                'user'  => $env['DB_USER'],
-                'password'  => $env['DB_PASS'],
-                'driver'    => $env['DB_DRIVER'] ?? 'pdo_mysql',
-                // 'charset'   => 'utf8',
-                // 'collation' => 'utf8_unicode_ci',
-                // 'prefix'    => '',
-            ],
-            'apiKeys' => [
-                'emailable' => $env['EMAILABLE_API_KEY'] ?? ''
-            ],
-            'mailer' => [
-                'dsn' => $env['MAILER_DSN']
-            ]
-        ];
     }
 
-    public function __get(string $name)
+    public function get(string $name, mixed $default = null): mixed
     {
-        return $this->config[$name] ?? null;
+        $path  = explode('.', $name);
+        $value = $this->config[array_shift($path)] ?? null;
+
+        if ($value === null) {
+            return $default;
+        }
+
+        foreach ($path as $key) {
+            if (! isset($value[$key])) {
+                return $default;
+            }
+
+            $value = $value[$key];
+        }
+
+        return $value;
     }
 }

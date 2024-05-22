@@ -10,6 +10,9 @@ RUN \
         unzip \
         libicu-dev
 
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash \
+        && apt-get install nodejs -y
+
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN docker-php-ext-configure intl

@@ -2,7 +2,7 @@ services:
   # nginx
   web:
     image: nginx:alpine3.19
-    container_name: kuk-nginx
+    container_name: expannies-nginx
     restart: always
     ports:
       - "8080:80"
@@ -13,23 +13,23 @@ services:
   app:
     build:
       dockerfile: ./Dockerfile
-    container_name: kuk-app
+    container_name: expannies-app
     volumes:
       - ../:/var/www
   #mysql
-  db:
-    container_name: kuk-db
-    image: mysql:8.0.37-bookworm
-    volumes:
-      - ./storage/mysql:/var/lib/mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_TCP_PORT: 3306
-    ports:
-      - 3306:3306
-    expose:
-      - 3306
+  # db:
+  #   container_name: expannies-db
+  #   image: mysql:8.0.37-bookworm
+  #   volumes:
+  #     - ./storage/mysql:/var/lib/mysql
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_TCP_PORT: 3306
+  #   ports:
+  #     - 3306:3306
+  #   expose:
+  #     - 3306
   # mailhog:
   #   container_name: kuk-mailhog
   #   image: mailhog/mailhog
